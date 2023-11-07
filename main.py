@@ -1,9 +1,9 @@
-import pygame
-import time
+import inspect
 
-from Map import Map
+import pygame
+
 from config import *
-from LBlock import LBlock
+from LBlock import LBlockConstructor, l_blocks
 
 
 clock = pygame.time.Clock()
@@ -11,9 +11,7 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_SIZE_X, SCREEN_SIZE_Y))
 done = False
 
-block_map = Map(SCREEN_SIZE_X+1, SCREEN_SIZE_Y+1)
-
-block_map.draw_block(50)
+LBlockConstructor.create_block_start(l_blocks, 10)
 
 while not done:
     screen.fill((0, 0, 0))
@@ -21,8 +19,10 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-    for l_block in block_map.list_blocks:
-        l_block.random_move()
+    l_blocks.draw(screen)
+    l_blocks.update()
 
+    pygame.display.update()
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(10)
+
