@@ -3,10 +3,13 @@ from random import randint
 
 from config import *
 
-l_blocks = pygame.sprite.Group()
+l_blocks = pygame.sprite.Group()    # Main SpriteGroup for SpriteLBlock
 
 
 class SpriteLBlock(pygame.sprite.Sprite):
+    """
+    Main Class for any SpriteLBlock
+    """
     def __init__(self, x=None, y=None, size_x=None, size_y=None, color=None, group=None):
         # dev settings
         super().__init__()
@@ -22,9 +25,9 @@ class SpriteLBlock(pygame.sprite.Sprite):
         self.y = y
         self.color = color
         self.add(group)
-        self.image = pygame.Surface((size_x, size_y))
+        self.image = pygame.Surface((size_x, size_y))   # set size
         self.image.fill(self.color)
-        self.rect = self.image.get_rect(center=(self.x, self.y))
+        self.rect = self.image.get_rect(center=(self.x, self.y))    # set position
 
         # game`s settings
         self.food = 0
@@ -63,8 +66,11 @@ class SpriteLBlock(pygame.sprite.Sprite):
 
 
 class LBlockConstructor:
+    """
+    Construct the LBlock with correct sittings
+    """
     @staticmethod
-    def create_block_start(group_name, quantity):
+    def create_block_start(group_name, quantity):   # only with start
         for i in range(quantity):
             SpriteLBlock(randint(4, SCREEN_SIZE_X), randint(4, SCREEN_SIZE_Y), group=group_name)
 
