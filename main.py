@@ -9,7 +9,7 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_SIZE_X, SCREEN_SIZE_Y))
 active = False       # Process of game
 
-LBlockConstructor.create_block_start(l_blocks, 10)  # Create start blocks
+LBlockConstructor.create_block_start(l_blocks, 50)  # Create start blocks
 
 while not active:
     screen.fill((0, 0, 0))
