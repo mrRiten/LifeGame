@@ -2,7 +2,7 @@ import pygame
 from random import randint
 
 from config import *
-from GenomeEditor import GenomeEditor
+from genome_editor import GenomeEditor
 
 l_blocks = pygame.sprite.Group()    # Main SpriteGroup for SpriteLBlock
 
@@ -35,6 +35,8 @@ class SpriteLBlock(pygame.sprite.Sprite):
         self.outgo_food = 0
         self.max_age = 0
 
+        self.genome_list = [self.max_food, self.outgo_food, self.max_age]
+
         if genome is None:
             # starter genome`s settings
             self.max_food = randint(1, 100)
@@ -42,6 +44,7 @@ class SpriteLBlock(pygame.sprite.Sprite):
             self.max_age = randint(10, 100)
         else:
             # ToDo recode this moment (optimization)
+
             if genome.get('max_food') is not None:
                 self.max_food = genome.get('max_food')
             if genome.get('outgo_food') is not None:

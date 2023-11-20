@@ -7,6 +7,5 @@ def change_generation(func):
     def wrapper(*args):
         change = randint(1, 100)
         if change <= change_generation_percent:
-            func(*args)
-            print("change generation")
+            return func(*args)
     return wrapper

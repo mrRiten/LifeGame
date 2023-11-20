@@ -2,15 +2,17 @@ from random import randrange, randint
 
 from decorator import change_generation
 
+# ToDo: Create a method for comparison genome
 
-# ToDo some problems with color
+
 class GenomeEditor:
     def __init__(self, ref_object):
         self.ref_object = ref_object
         self.editor = 0
 
     def create_new_genome(self):
-        # ToDo recode this method
+        # ToDo recode this method use pattern Strategy
+
         max_food = self.generate_genome_max_food()
         if max_food is None:
             max_food = self.ref_object.max_food
@@ -57,10 +59,16 @@ class GenomeEditor:
 
     def generate_genome_color(self):
         if self.editor > 0:
-            color = list(self.ref_object.color)
-            for color_id in color:
-                color_id += int(randrange(-10, 10, 10))
+            color_old = self.ref_object.color
+            color = []
+            for i in range(len(color_old)):
+                color_code = color_old[i] + randint(-10, 10)
+                if color_code > 255:
+                    color_code = 255
+                if color_code < 0:
+                    color_code = 0
+                color.append(color_code)
+
             color = tuple(color)
-            color = (randint(0, 255), randint(0, 255), randint(0, 255))
             print(f'{self.ref_object.color} -> {color}')
             return color
