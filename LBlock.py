@@ -3,6 +3,8 @@ from random import randint
 
 from config import *
 from genome_editor import GenomeEditor
+from genarate_g_strategy import GenerateGenomeLinker
+
 
 l_blocks = pygame.sprite.Group()    # Main SpriteGroup for SpriteLBlock
 
@@ -40,11 +42,10 @@ class SpriteLBlock(pygame.sprite.Sprite):
         if genome is None:
             # starter genome`s settings
             self.max_food = randint(1, 100)
-            self.outgo_food = randint(1, 2)
-            self.max_age = randint(10, 100)
+            self.outgo_food = randint(1, 3)
+            self.max_age = randint(10, 50)
         else:
             # ToDo recode this moment (optimization)
-
             if genome.get('max_food') is not None:
                 self.max_food = genome.get('max_food')
             if genome.get('outgo_food') is not None:
@@ -75,7 +76,7 @@ class SpriteLBlock(pygame.sprite.Sprite):
     def create_child(self):
         if self.food >= self.max_food:
             LBlockConstructor.create_block_child(self)
-            self.food = self.max_food / 40
+            self.food = self.max_food / 50
 
     def one_step(self):
         self.age += 1
@@ -97,7 +98,8 @@ class LBlockConstructor:
 
     @staticmethod
     def create_block_child(ref_object):
-        gen_editor = GenomeEditor(ref_object)
+        strategy_list = GenerateGenomeLinker(ref_object).strategy_list
+        gen_editor = GenomeEditor(ref_object, strategy_list)
         genome = gen_editor.create_new_genome()
         try:
             SpriteLBlock(randint(ref_object.x-2, ref_object.x+2), randint(ref_object.y-2, ref_object.y+2),
